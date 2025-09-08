@@ -1,6 +1,7 @@
 import random
 from goblin import Goblin
 from hero import Hero
+from brodytheboss import Brody
 
 def main():
     print("Welcome to the Battle Arena!")
@@ -10,13 +11,16 @@ def main():
     hero = Hero("Aragorn")
 
     # Create goblins ༼ ºل͟º ༽ ༼ ºل͟º ༽ ༼ ºل͟º ༽
-    goblins = [Goblin(f"Goblin {i+1}") for i in range(3)]
+    goblins = [Goblin(f"Goblin {i+1}", "green") for i in range(3)]
+
+    # Create Brody the Boss (just for fun)
+    brody = Brody("Brody the Boss", "red")
 
     # Keep track of how many goblins were defeated
     defeated_goblins = 0
 
     # Battle Loop 
-    while hero.is_alive() and any(goblin.is_alive() for goblin in goblins):
+    while hero.is_alive() and any(goblin.is_alive() for goblin in goblins or brody.is_alive()):
         print("\nNew Round!")
         
         # Hero's turn to attack
@@ -42,6 +46,21 @@ def main():
         print(f"\nThe hero has defeated all the goblins! ༼ ᕤ◕◡◕ ༽ᕤ")
     else:
         print(f"\nThe hero has been defeated. Game Over. (｡•́︿•̀｡)")
+
+    if brody.is_alive():
+        print("Boss Time!!!")
+        brody = Brody("Brody the Boss", "red")
+        while hero.is_alive() and brody.is_alive():
+            damage = hero.strike()
+            brody.take_damage(damage)
+            print(f"Hero attacks Brody the Boss for {damage} damage! Health is now {brody.health}.")
+            damage = brody.attack()
+            hero.receive_damage
+        if brody.is_alive():
+            print (f"The hero has defeated Brody the Boss! ༼ ᕤ◕◡◕ ༽ᕤ")
+        else:
+            print(f"The hero has been defeated by Brody the Boss. Game Over. (｡•́︿•̀｡)")
+
 
     # Final tally of goblins defeated
     print(f"\nTotal goblins defeated: {defeated_goblins} / {len(goblins)}")

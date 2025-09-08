@@ -16,7 +16,7 @@ class Hero:
     
     def __init__(self, name):
         self.name = name
-        self.health = 150
+        self.health = 500
         self.strength = 15
 
     def strike(self):
